@@ -8,6 +8,7 @@ setup(
     author='Muhamed Hassan',
     description='YQRCCore is used by all other microservices.',
     packages=['yqrc_core'],
+    package_data={'yqrc_core': ['py.typed']},
     install_requires=[
         'fastapi==0.88.0',
         'psycopg2==2.9.5',
