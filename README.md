@@ -1,4 +1,7 @@
 # Core Library
+## docs
+[https://yqrc-api-core.gaytomycode.com](https://yqrc-api-core.gaytomycode.com)
+
 ## Install
 ### Commandline
 ```bash

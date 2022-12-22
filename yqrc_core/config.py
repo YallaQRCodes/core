@@ -8,7 +8,6 @@ from yqrc_core.config import settings
 settings.MEDIA_ROOT
 ```
 """
-from pathlib import Path
 import os
 from pydantic import AnyHttpUrl, BaseSettings, validator, Field
 from typing import List, Union
@@ -20,7 +19,7 @@ class Settings(BaseSettings):
     """
 
     MEDIA_ROOT: str = os.path.join(
-        Path(__file__).resolve().parent.parent.parent, 'media'
+        os.getcwd(), 'media'
     )
     """Path to file upload. Now is local but should be moved to AWS S3"""
 
