@@ -18,9 +18,7 @@ class Settings(BaseSettings):
     The settings used by micro-services
     """
 
-    MEDIA_ROOT: str = os.path.join(
-        os.getcwd(), 'media'
-    )
+    MEDIA_ROOT: str = os.path.join(os.getcwd(), 'media')
     """Path to file upload. Now is local but should be moved to AWS S3"""
 
     SQLALCHEMY_DATABASE_URI: str = 'postgresql+psycopg2://user:pass@host:p/db'
