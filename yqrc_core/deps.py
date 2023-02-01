@@ -52,6 +52,7 @@ class TokenData(BaseModel):
 
     id: Optional[int] = None
     email: Optional[str] = None
+    token: Optional[str] = None
 
 
 __credentials_exception = HTTPException(
@@ -78,7 +79,7 @@ async def get_current_identity(
         email: str = payload.get('email', "")
         if identity_id is None or email is None:
             raise __credentials_exception
-        token_data = TokenData(id=identity_id, email=email)
+        token_data = TokenData(id=identity_id, email=email, token=token)
     except JWTError:
         raise __credentials_exception
     return token_data
