@@ -65,6 +65,15 @@ STATUS_CODE: Dict[int, str] = {}
 
 
 class Request:
+    """
+    temporary to make api requset, it should tie into aws tools when deployed to production
+
+    >>> request = Request(url='https://api-queue.yallaplus.com', path='/v1/reservation/upcoming/', method='GET', headers={}, json={})
+    >>> request.set_auth_header('Bearer ...')
+    >>> response = request.send()
+    >>> response.status
+    >>> response.json
+    """
     def __init__(
         self,
         url: str,
