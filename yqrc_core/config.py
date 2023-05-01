@@ -8,6 +8,7 @@ from yqrc_core.config import settings
 settings.MEDIA_ROOT
 ```
 """
+import re
 import os
 from pydantic import AnyHttpUrl, BaseSettings, validator, Field
 from typing import List, Union
@@ -35,7 +36,7 @@ class Settings(BaseSettings):
     """Route prefix for version 1"""
 
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
-    """Allowed FrontEnd origins"""
+    """Allowed cors origins. Can take str, list, regex"""
 
     BACKEND_URI: AnyHttpUrl = Field('http://localhost:8000')
     """Micro-service URI"""
@@ -53,6 +54,8 @@ class Settings(BaseSettings):
             return [i.strip() for i in v.split(',')]
         elif isinstance(v, (list, str)):
             return v
+        elif isinstance(v, str) and v.endswith('*'):
+            return re.compile(v)
         raise ValueError(v)
 
     class Config:
