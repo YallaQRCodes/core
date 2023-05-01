@@ -54,7 +54,7 @@ class Settings(BaseSettings):
             return [i.strip() for i in v.split(',')]
         elif isinstance(v, (list, str)):
             return v
-        elif isinstance(v, str) and v.endswith('*'):
+        elif isinstance(v, str) and v.endswith('+'):
             return re.compile(v)
         raise ValueError(v)
 
