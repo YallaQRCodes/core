@@ -14,8 +14,9 @@ class MySchema(PropertyBaseModel):
 
 ```
 """
-from pydantic import BaseModel
 from typing import Union
+
+from pydantic import BaseModel
 
 
 class PropertyBaseModel(BaseModel):

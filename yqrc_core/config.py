@@ -8,10 +8,23 @@ from yqrc_core.config import settings
 settings.MEDIA_ROOT
 ```
 """
-import re
+import json
 import os
-from pydantic import AnyHttpUrl, BaseSettings, validator, Field
+import re
 from typing import List, Union
+
+from pydantic import AnyHttpUrl, BaseSettings, Field, validator
+
+
+class LazyDecoder(json.JSONDecoder):
+    def decode(self, s, **kwargs):
+        regex_replacements = [
+            (re.compile(r'([^\\])\\([^\\])'), r'\1\\\\\2'),
+            (re.compile(r',(\s*])'), r'\1'),
+        ]
+        for regex, replacement in regex_replacements:
+            s = regex.sub(replacement, s)
+        return super().decode(s, **kwargs)
 
 
 class Settings(BaseSettings):
@@ -25,7 +38,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URI: str = 'postgresql+psycopg2://user:pass@host:p/db'
     """Path to the database. Now is local but should be moved to AWS RDS"""
 
-    JWT_SECRET: str = ""
+    JWT_SECRET: str = ''
     """Used by the identity micro-service to create JWTs"""
     ALGORITHM: str = 'HS256'
     """Used by the identity micro-service to create JWTs"""
@@ -35,7 +48,7 @@ class Settings(BaseSettings):
     API_V1_STR: str = '/v1'
     """Route prefix for version 1"""
 
-    BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = []
+    BACKEND_CORS_ORIGINS: List = []
     """Allowed cors origins. Can take str, list, regex"""
 
     BACKEND_URI: AnyHttpUrl = Field('http://localhost:8000')
@@ -51,16 +64,18 @@ class Settings(BaseSettings):
         Validates and formats CORS origins
         """
         if isinstance(v, str) and not v.startswith('['):
-            return [i.strip() for i in v.split(',')]
+            return [re.compile(i.strip()) for i in v.split(',')]
         elif isinstance(v, (list, str)):
-            return v
-        elif isinstance(v, str) and v.endswith('+'):
-            return re.compile(v)
+            print('HELLO')
+            print([i for i in v])
+            print([re.compile(i) for i in v])
+            return [re.compile(i) for i in v]
         raise ValueError(v)
 
     class Config:
         case_sensitive = True
         env_file = '.env'
+        json_loads = LazyDecoder().decode
         """
         Now is a local file but should be moved to AWS lambda env
         """

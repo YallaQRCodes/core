@@ -2,10 +2,10 @@
 ## Description
 Couple of helper functions.
 """
-from typing import Optional, Dict, Any
 import http.client
 import json
 import re
+from typing import Any, Dict, Optional
 
 
 def ord(n: int) -> str:
@@ -74,6 +74,7 @@ class Request:
     >>> response.status
     >>> response.json
     """
+
     def __init__(
         self,
         url: str,

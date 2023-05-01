@@ -16,14 +16,13 @@ from typing import Generator, Optional
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import jwt, JWTError
+from jose import JWTError, jwt
 from pydantic import BaseModel
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 
 from .config import settings
-
 
 __engine = create_engine(settings.SQLALCHEMY_DATABASE_URI)
 __SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=__engine)
@@ -58,7 +57,7 @@ class TokenData(BaseModel):
 __credentials_exception = HTTPException(
     status_code=status.HTTP_401_UNAUTHORIZED,
     detail='Could not validate credentials',
-    headers={'Authorizaiton': ""},
+    headers={'Authorizaiton': ''},
 )
 
 
@@ -75,8 +74,8 @@ async def get_current_identity(
             algorithms=[settings.ALGORITHM],
             options={'verify_aud': False},
         )
-        identity_id: int = payload.get('id', "")
-        email: str = payload.get('email', "")
+        identity_id: int = payload.get('id', '')
+        email: str = payload.get('email', '')
         if identity_id is None or email is None:
             raise __credentials_exception
         token_data = TokenData(id=identity_id, email=email, token=token)

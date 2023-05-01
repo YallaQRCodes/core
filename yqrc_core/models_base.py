@@ -15,7 +15,6 @@ from typing import Any, Dict
 
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 
-
 __class_registry: Dict = {}
 
 
