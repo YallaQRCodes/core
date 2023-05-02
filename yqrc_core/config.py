@@ -49,7 +49,10 @@ class Settings(BaseSettings):
     """Route prefix for version 1"""
 
     BACKEND_CORS_ORIGINS: List = []
-    """Allowed cors origins. Can take str, list, regex"""
+    """Allowed cors origins. Can take str, list"""
+
+    BACKEND_CORS_ORIGIN_REGEX: str = ""
+    """Allowed cors origin regex"""
 
     BACKEND_URI: AnyHttpUrl = Field('http://localhost:8000')
     """Micro-service URI"""
