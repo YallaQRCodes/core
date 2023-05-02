@@ -66,9 +66,6 @@ class Settings(BaseSettings):
         if isinstance(v, str) and not v.startswith('['):
             return [re.compile(i.strip()) for i in v.split(',')]
         elif isinstance(v, (list, str)):
-            print('HELLO')
-            print([i for i in v])
-            print([re.compile(i) for i in v])
             return [re.compile(i) for i in v]
         raise ValueError(v)
 
