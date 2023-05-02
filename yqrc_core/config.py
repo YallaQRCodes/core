@@ -67,9 +67,9 @@ class Settings(BaseSettings):
         Validates and formats CORS origins
         """
         if isinstance(v, str) and not v.startswith('['):
-            return [re.compile(i.strip()) for i in v.split(',')]
+            return [i.strip() for i in v.split(',')]
         elif isinstance(v, (list, str)):
-            return [re.compile(i) for i in v]
+            return [i for i in v]
         raise ValueError(v)
 
     class Config:
