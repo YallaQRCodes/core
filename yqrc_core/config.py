@@ -51,7 +51,7 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: List = []
     """Allowed cors origins. Can take str, list"""
 
-    BACKEND_CORS_ORIGIN_REGEX: str = ""
+    BACKEND_CORS_ORIGIN_REGEX: str = ''
     """Allowed cors origin regex"""
 
     BACKEND_URI: AnyHttpUrl = Field('http://localhost:8000')

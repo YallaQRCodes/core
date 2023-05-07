@@ -88,7 +88,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         Updates and returns sqlalchemy object with the passed pydantic schema.
         """
-        # XXX(gaytomycode): This should update a copy of the db_obj not the
+        # FIXME(gaytomycode): This should update a copy of the db_obj not the
         # db_obj itself to allow the user to keep a copy of the old db_objs
         obj_data = jsonable_encoder(db_obj)
         if isinstance(obj_in, dict):
