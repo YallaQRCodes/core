@@ -12,7 +12,7 @@ def example(
     ...
 ```
 """
-from typing import Generator, Optional
+from typing import Generator, Optional, List
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -80,7 +80,9 @@ async def get_current_identity(
         roles: List[str] = payload.get('roles', [])
         if identity_id is None or email is None:
             raise __credentials_exception
-        token_data = TokenData(id=identity_id, email=email, token=token, roles=roles)
+        token_data = TokenData(
+            id=identity_id, email=email, token=token, roles=roles
+        )
     except JWTError:
         raise __credentials_exception
     return token_data
