@@ -13,6 +13,7 @@ def example(
 ```
 """
 from typing import Generator, Optional, List
+from ast import literal_eval
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
@@ -77,7 +78,7 @@ async def get_current_identity(
         )
         identity_id: int = payload.get('id', '')
         email: str = payload.get('email', '')
-        roles: List[str] = payload.get('roles', [])
+        roles: List[str] = literal_eval(payload.get('roles', '[]'))
         if identity_id is None or email is None:
             raise __credentials_exception
         token_data = TokenData(
