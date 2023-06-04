@@ -57,7 +57,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         """
         Returns a list of #limit sqlalchemy objects from skip.
         """
-        return db.query(self.model).offset(skip).limit(limit).all()
+        return db.query(self.model).offset(skip).limit(limit).order_by(self.model.id.asc()).all()
 
     def create(self, db: Session, *, obj_in: CreateSchemaType) -> ModelType:
         """

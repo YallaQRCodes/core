@@ -42,7 +42,7 @@ class Settings(BaseSettings):
     """Used by the identity micro-service to create JWTs"""
     ALGORITHM: str = 'HS256'
     """Used by the identity micro-service to create JWTs"""
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 999
     """Used by the identity micro-service to create JWTs"""
 
     API_V1_STR: str = '/v1'
